@@ -1,0 +1,14 @@
+<?php 
+/*Adicionar fundo em imagem PNG com PHP*/
+$arquivo = "caminho/do/arquivo.png"; 
+$nome = substr_replace($arquivo, '', '-4'); // Evita que a imagem fique arquivo.png.jpeg
+$image = imagecreatefrompng($arquivo);
+$bg = imagecreatetruecolor(imagesx($image), imagesy($image)); 
+imagefill($bg, 0, 0, imagecolorallocate($bg, 255, 255, 255)); // Adiciona um fundo 
+imagealphablending($bg, TRUE);
+imagecopy($bg, $image, 0, 0, 0, 0, imagesx($image), imagesy($image));
+imagedestroy($image);
+$quality = 100; // qualidade da imagem de 0 a 100%
+imagejpeg($bg, $nome . ".jpeg", $quality); // Destino 
+imagedestroy($bg);
+?>
